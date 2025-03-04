@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,10 +6,11 @@ import Modal from "react-modal";
 import { states } from '../../constants/states';
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../store/slices/employee.slice";
+import styles from "./EmployeeCreation.module.css"; // Import the CSS module
 
-Modal.setAppElement("#root"); // Required for accessibility
+Modal.setAppElement("#root");
 
-const EmployeeCreationForm = () => {
+const EmployeeCreation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,24 +21,26 @@ const EmployeeCreationForm = () => {
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [zip, setZip] = useState("");
   const [department, setDepartment] = useState("Sales");
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const saveEmployee = () => {
     const dateOfBirthStr = new Date(dateOfBirth).toISOString().split("T")[0];
     const startDateStr = new Date(startDate).toISOString().split("T")[0];
+    
     const employeeData = {
       firstName,
       lastName,
       dateOfBirth: dateOfBirthStr,
-      startDate : startDateStr,
+      startDate: startDateStr,
       street, 
       city, 
       state, 
-      zipCode,
+      zip,
       department,
     };
+
     dispatch(addEmployee(employeeData));
     setModalIsOpen(true);
   };
@@ -48,38 +51,44 @@ const EmployeeCreationForm = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-lg">
-      <h1 className="text-2xl font-bold text-center mb-4">HRnet</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>HRnet</h1>
+      <h2 className={styles.subtitle}>Create Employee</h2>
       
-      <h2 className="text-lg font-semibold mt-4">Create Employee</h2>
-      <form className="flex flex-col gap-3">
+      <form className={styles.form}>
         <label>First Name</label>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="border p-2" />
+        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={styles.input} />
 
         <label>Last Name</label>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="border p-2" />
+        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className={styles.input} />
 
         <label>Date of Birth</label>
-        <DatePicker selected={dateOfBirth} onChange={(date) => setDateOfBirth(date)} className="border p-2 w-full" />
+        <DatePicker 
+          selected={dateOfBirth} 
+          onChange={(date) => setDateOfBirth(date)} 
+          className={styles.input} 
+        />
 
         <label>Start Date</label>
-        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="border p-2 w-full" />
+        <DatePicker 
+          selected={startDate} 
+          onChange={(date) => setStartDate(date)} 
+          className={styles.input} 
+        />
 
-        <fieldset className="border p-3">
-          <legend className="font-semibold">Address</legend>
+        <fieldset className={styles.fieldset}>
+          <legend>Address</legend>
           <label>Street</label>
-          <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} className="border p-2 w-full" />
+          <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} className={styles.input} />
 
           <label>City</label>
-          <input type="text" value={city} onChange={(e) => setCity(e.target.value)} className="border p-2 w-full" />
+          <input type="text" value={city} onChange={(e) => setCity(e.target.value)} className={styles.input} />
 
           <label>State</label>
           <select
-            name="state"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            className="border p-2 w-full"
-            required
+            className={styles.input}
           >
             <option value="">Select a state</option>
             {states.map((state) => (
@@ -90,11 +99,20 @@ const EmployeeCreationForm = () => {
           </select>
 
           <label>Zip Code</label>
-          <input type="number" value={zipCode} onChange={(e) => setZipCode(e.target.value)} className="border p-2 w-full" />
+          <input 
+            type="number" 
+            value={zip} 
+            onChange={(e) => setZip(e.target.value)} 
+            className={styles.input} 
+          />
         </fieldset>
 
         <label>Department</label>
-        <select value={department} onChange={(e) => setDepartment(e.target.value)} className="border p-2">
+        <select 
+          value={department} 
+          onChange={(e) => setDepartment(e.target.value)} 
+          className={styles.input}
+        >
           <option>Sales</option>
           <option>Marketing</option>
           <option>Engineering</option>
@@ -102,17 +120,23 @@ const EmployeeCreationForm = () => {
           <option>Legal</option>
         </select>
 
-        <button type="button" onClick={saveEmployee} className="bg-blue-500 text-white p-2 mt-3">
+        <button type="button" onClick={saveEmployee} className={styles.saveButton}>
           Save
         </button>
       </form>
 
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="p-6 bg-white shadow-lg rounded-md max-w-sm mx-auto">
-        <h2 className="text-lg font-bold">Employee Created!</h2>
-        <button onClick={() => handleEmployeeCreated()} className="mt-4 bg-red-500 text-white p-2">Close</button>
+      <Modal 
+        isOpen={modalIsOpen} 
+        onRequestClose={() => setModalIsOpen(false)} 
+        className={styles.modal}
+      >
+        <h2>Employee Created!</h2>
+        <button onClick={handleEmployeeCreated} className={styles.closeButton}>
+          Close
+        </button>
       </Modal>
     </div>
   );
 };
 
-export default EmployeeCreationForm;
+export default EmployeeCreation;

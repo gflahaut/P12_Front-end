@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
+import styles from "./Datatables.module.css"; 
 
 const DataTable = ({ data, columns, rowsPerPage = 3 }) => {
   const [search, setSearch] = useState("");
@@ -43,10 +44,10 @@ const DataTable = ({ data, columns, rowsPerPage = 3 }) => {
         placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border p-2 w-full mb-3"
+        className={styles.searchInput}
       />
 
-      <table className="w-full border-collapse border">
+      <table className={styles.table}>
         <thead>
           <tr className="bg-gray-200">
             {columns.map((key) => (
@@ -77,11 +78,11 @@ const DataTable = ({ data, columns, rowsPerPage = 3 }) => {
         </tbody>
       </table>
 
-      <div className="flex justify-between mt-4">
+      <div className={styles.pagination}>
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="bg-blue-500 text-white px-4 py-2 disabled:opacity-50"
+          className={styles.button}
         >
           Prev
         </button>
@@ -89,7 +90,7 @@ const DataTable = ({ data, columns, rowsPerPage = 3 }) => {
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="bg-blue-500 text-white px-4 py-2 disabled:opacity-50"
+          className={styles.button}
         >
           Next
         </button>

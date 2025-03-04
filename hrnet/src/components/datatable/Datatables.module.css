@@ -1,0 +1,81 @@
+/* Datatables.module.css */
+.container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .searchInput {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background: #f4f4f4;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  th:hover {
+    background: #e0e0e0;
+  }
+  
+  tbody tr:hover {
+    background: #f9f9f9;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 15px;
+    color: #777;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .button {
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .button:hover:not(:disabled) {
+    background: #0056b3;
+  }
+  
+  .page-info {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
