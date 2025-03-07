@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import styles from "./EmployeeList.module.css";
-import DataTable from "../../components/datatable/Datatables";
+import DataTable from "gf-react-datatables";
 import { useSelector } from "react-redux";
 
 const EmployeeList = () => {
